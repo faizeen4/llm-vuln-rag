@@ -70,9 +70,9 @@ class Chunk:
     metadata: dict
 
 
-# --------------------------------------------------------------------------- #
+
 # Download
-# --------------------------------------------------------------------------- #
+
 
 def download_cwe() -> Path:
     RAW_DIR.mkdir(parents=True, exist_ok=True)
@@ -134,9 +134,9 @@ def download_nvd(max_pages: int | None = None, api_key: str | None = None) -> li
     return saved
 
 
-# --------------------------------------------------------------------------- #
+
 # Parse
-# --------------------------------------------------------------------------- #
+
 
 def parse_cwe(zip_path: Path) -> Iterator[Record]:
     with zipfile.ZipFile(zip_path) as zf:
@@ -225,9 +225,8 @@ def parse_nvd_pages(paths: list[Path]) -> Iterator[Record]:
             )
 
 
-# --------------------------------------------------------------------------- #
 # Clean + chunk
-# --------------------------------------------------------------------------- #
+
 
 def clean_text(text: str) -> str:
     text = re.sub(r"\s+", " ", text).strip()
@@ -271,9 +270,9 @@ def chunk_record(record: Record, max_chars: int = 800, overlap: int = 100) -> li
     return chunks
 
 
-# --------------------------------------------------------------------------- #
 # Pipeline
-# --------------------------------------------------------------------------- #
+
+
 
 def run(cwe_only: bool, skip_download: bool, max_nvd_pages: int | None, nvd_api_key: str | None) -> None:
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
